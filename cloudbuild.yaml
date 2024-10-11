@@ -1,0 +1,18 @@
+steps:
+ # Build the container image
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['build', '-t', 'gcr.io/sites60/sites60appv1:$COMMIT_SHA', '.']
+ # Push the container image to Container Registry
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['push', 'gcr.io/sites60/sites60appv1:$COMMIT_SHA']
+ # Deploy container image to Cloud Run
+ - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+   entrypoint: gcloud
+   args:
+   - 'run'
+   - 'deploy'
+   - 'sites60appv1'
+   - '--image'
+   - '- gcr.io/sites60/sites60appv1:$COMMIT_SHA'
+  options:
+    logging: CLOUD_LOGGING_ONLY
