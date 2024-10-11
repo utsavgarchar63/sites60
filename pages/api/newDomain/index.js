@@ -11,7 +11,7 @@ import dbConnect from "../../../lib/dbConnect";
 import { fetchRecords } from "../../../lib/genericController";
 import { getToken } from "next-auth/jwt";
 
-import * as dbVars from "../../../sites60-0841df01437a.json";
+import * as dbVars from "../../../sites60-0841df01437a.js";
 import { log } from "console";
 
 const secret = process.env.NEXTAUTH_SECRET;

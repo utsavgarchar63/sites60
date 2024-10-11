@@ -71,7 +71,7 @@ export default async function handler(req, res) {
                         // Ping the google recaptcha verify API to verify the captcha code you received
 
                             async function getAccessToken() {
-                            const keyFilePath = 'sites60-0841df01437a.json';
+                            const keyFilePath = 'sites60-0841df01437a.js';
 
                             // Create a new GoogleAuth instance
                             const auth = new GoogleAuth({
