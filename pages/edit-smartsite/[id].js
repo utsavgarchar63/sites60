@@ -1983,7 +1983,7 @@ export default function Example({ size, className }) {
                     </div>
                     <iframe
                       src={
-                        process.env.NEXT_PUBLIC_BASE_URL + "/smartsite/" + key
+                        "https://sites60.vercel.app" + "/smartsite/" + key
                       }
                       className="overflow-y-auto scrolling"
                       style={{ width: "100%", height: "550px", margin: "auto" }}

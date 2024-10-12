@@ -46,10 +46,10 @@ export default NextAuth({
           const role = credentials.role;
           const mobile = credentials.mobile;
 
- 
+
           if (role == "owner") {
             const user = await User.findOne({ email: email });
- 
+
             if (!user) {
               return null;
             }
@@ -64,7 +64,7 @@ export default NextAuth({
             }
           }
         } catch (error) {
-          console.log(error , "<error nextauth")
+          console.log(error, "<error nextauth")
           return null;
         }
       },
@@ -99,7 +99,7 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user, account }) {
       await dbConnect();
-     
+
       if (account) {
 
         try {
@@ -110,36 +110,36 @@ export default NextAuth({
           let image = "";
           let fname = "";
           let lname = "";
-  
+
           if (platform != "credentials") {
-           
+
             name = user.name;
             email = user.email;
             image = user.image;
-  console.log("heeeeeeeerrrrrrr")
+            console.log("heeeeeeeerrrrrrr")
             const count = await User.countDocuments({ email: email });
-  
-   
+
+
             if (count == 0) {
               const verification_key = uuidv4();
               const salt = await bcrypt.genSalt(12);
-  
+
               let tempPwd = randomstring.generate({
                 length: 8,
                 charset: "alphanumeric",
               });
-  
+
               const hash = await bcrypt.hash(tempPwd, salt);
-  
+
               let role = "owner";
-  
+
               let uid = randomstring.generate({
                 length: 8,
                 charset: "alphanumeric",
               });
-  
+
               let nameList = name.split(" ");
-  
+
               if (nameList.length > 0) {
                 fname = nameList[0];
                 lname = nameList[1];
@@ -147,9 +147,9 @@ export default NextAuth({
                 fname = nameList[0];
                 lname = nameList[0];
               }
-  
+
               let currentDate = new Date();
-  
+
               let uInfo = await User.create({
                 uid: uid,
                 first_name: fname,
@@ -162,31 +162,31 @@ export default NextAuth({
                 verification_expires: currentDate.getTime() + 7200000,
                 password: hash,
               });
-  
+
               token.sub = uInfo._id;
-  
+
               createUserInfo(uInfo._id, uInfo.role, {
                 fname: fname,
                 email: email,
                 uuid: verification_key,
               });
-  
+
               sendLeads(fname, lname, email, uid, role);
             } else {
               const response = await fetch(
-                process.env.NEXT_PUBLIC_BASE_URL + "/api/getUser?email=" + email
+                "https://sites60.vercel.app" + "/api/getUser?email=" + email
               );
               const data = await response.json();
               token.sub = data.userInfo._id;
             }
           }
-  
+
           token.accessToken = account.access_token;
         } catch (error) {
-          console.log(error , "Next auth error");
+          console.log(error, "Next auth error");
         }
 
-      
+
 
 
       }
