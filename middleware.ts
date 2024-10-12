@@ -22,7 +22,7 @@ export async function middleware(req: NextRequest) {
     try {
         const domain = req.nextUrl.host;
  
-        if (domain != "app.sites60.com" && domain != "localhost:3000") {
+        if (domain != "sites60.vercel.app" && domain != "localhost:3000") {
             let data = await getDomainDetails(domain)
             if (data.allow == false) {
                 return NextResponse.redirect(new URL('/notallowed', req.url))
