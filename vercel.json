@@ -6,32 +6,14 @@
                "use": "@vercel/next"
           }
      ],
-     "rewrites": [
+     "routes": [
           {
-               "source": "/api/:path*",
-               "destination": "/api/:path*"
-          }
-     ],
-     "redirects": [
+               "src": "/api/(.*)",
+               "dest": "/api/$1"
+          },
           {
-               "source": "/old-route",
-               "destination": "/new-route",
-               "permanent": true
-          }
-     ],
-     "headers": [
-          {
-               "source": "/(.*)",
-               "headers": [
-                    {
-                         "key": "X-Frame-Options",
-                         "value": "SAMEORIGIN"
-                    },
-                    {
-                         "key": "X-Content-Type-Options",
-                         "value": "nosniff"
-                    }
-               ]
+               "src": "/(.*)",
+               "dest": "/$1"
           }
      ]
 }

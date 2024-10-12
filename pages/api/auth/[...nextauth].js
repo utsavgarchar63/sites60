@@ -95,7 +95,7 @@ export default NextAuth({
   pages: {
     signIn: "/login",
   },
-  database: process.env.MONGODB_URI,
+  database: process.env.MONGODB_URI || "mongodb+srv://apps_boss:Cr9ENyzJUigoOjT8@productioncluster.sfcfv.mongodb.net/sites60_db_prod?retryWrites=true&w=majority",
   callbacks: {
     async jwt({ token, user, account }) {
       await dbConnect();
